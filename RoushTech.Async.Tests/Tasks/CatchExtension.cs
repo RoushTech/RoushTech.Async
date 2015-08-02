@@ -7,7 +7,7 @@
     public class CatchExtension
     {        
         [Fact]
-        public void CatchSingle()
+        public void ShouldSuccessfullyCatch()
         {
             var caught = false;
             Task.Factory
@@ -22,30 +22,24 @@
         }
 
         [Fact]
-        public void CatchChain()
+        public void ShouldBeIgnoredOnNonException()
         {
             var caught = false;
             Task.Factory
-                .StartNew(() => { throw new InvalidOperationException("test"); })
-                .Then((t) => Assert.True(false, "Then called after thrown task."))
-                .Catch((exception) =>
-                {
-                    Assert.Equal("test", exception.Message);
-                    caught = true;
-                })
+                .StartNew(() => { return 1; })
+                .Catch((exception) => { caught = true; })
                 .Wait();
-            Assert.True(caught, "Caught flag false");
+            Assert.False(caught, "Caught flag true");
         }
 
         [Fact]
-        public void CatchContinueChain()
+        public void ShouldClearIsFaultedAndContinue()
         {
             bool caught = false,
                 continued = false,
                 faulted = true;
             Task.Factory
                 .StartNew(() => { throw new InvalidOperationException("test"); })
-                .Then((t) => Assert.True(false, "Then called after thrown task."))
                 .Catch((exception) =>
                 {
                     Assert.Equal("test", exception.Message);

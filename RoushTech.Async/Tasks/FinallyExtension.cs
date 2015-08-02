@@ -4,15 +4,24 @@
     {
         public static Task<TResult> Finally<TResult>(this Task<TResult> task, Action finalAction)
         {
-            return (Task<TResult>)Finally((Task)task, finalAction);
+            var tcs = new TaskCompletionSource<TResult>();
+            task.ContinueWith(t =>
+            {
+                finalAction();
+                tcs.SetResult(t.Result);
+            });
+            return tcs.Task;
         }
 
         public static Task Finally(this Task task, Action finalAction)
         {
-            return task.ContinueWith(t =>
+            var tcs = new TaskCompletionSource<AsyncVoid>();
+            task.ContinueWith(t =>
             {
                 finalAction();
+                tcs.SetResult(default(AsyncVoid));
             });
+            return tcs.Task;
         }
     }
 }

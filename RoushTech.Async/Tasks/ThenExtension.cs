@@ -213,8 +213,14 @@
 
             task.ContinueWith(previousTask =>
             {
-                if (previousTask.IsFaulted) tcs.TrySetException(previousTask.Exception);
-                else if (previousTask.IsCanceled) tcs.TrySetCanceled();
+                if (previousTask.IsFaulted)
+                {
+                    tcs.TrySetException(previousTask.Exception);
+                }
+                else if (previousTask.IsCanceled)
+                {
+                    tcs.TrySetCanceled();
+                }
                 else
                 {
                     try

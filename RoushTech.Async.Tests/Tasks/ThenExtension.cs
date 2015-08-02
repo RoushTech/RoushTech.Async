@@ -7,7 +7,7 @@
     {
 
         [Fact]
-        public void ThenChain()
+        public void ShouldChainMethods()
         {
             var i = 0;
             Task.Factory
@@ -15,6 +15,18 @@
                 .Then((t) => { i++; })
                 .Wait();
             Assert.Equal(2, i);
+        }
+
+        [Fact]
+        public void ThrownExceptionShouldSkipThen()
+        {
+            var executed = false;
+            Task.Factory
+                .StartNew(() => { throw new System.Exception("test"); })
+                .Then((t) => { executed = true; })
+                .Catch((t) => { /* Clearing IsFailed flag */ })
+                .Wait();
+            Assert.False(executed, "Executed flag true");
         }
     }
 }
