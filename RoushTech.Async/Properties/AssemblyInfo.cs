@@ -2,9 +2,9 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("RoushTech.Async")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Additional tooling for asynchronous methods")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("William Roush")]
 [assembly: AssemblyProduct("RoushTech.Async")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]

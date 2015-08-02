@@ -59,6 +59,8 @@ Task.Factory
 
 Please make pull requests onto a currently in-development branch, do not make pull requests to master they will be rejected.
 
+Tests are highly appreciated and code may be rejected if substantial changes are made and current tests do not cover the functionality added. 
+
 #License
 
 Please see LICENSE file for details.
